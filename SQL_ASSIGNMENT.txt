@@ -1,0 +1,279 @@
+QUERIES
+1.Write a query to list all the employees who are working as clerk?
+
+SELECT ENAME,EMPNO,JOB
+FROM EMP
+WHERE JOB='CLERK'
+
+
+
+2.Write a query to list the employees who are working as clerks or managers?
+
+SELECT ENAME,EMPNO,JOB
+FROM EMP
+WHERE JOB ='CLERK' OR JOB= 'MANAGER'
+
+
+
+3.Write a query to get the current date?
+
+SELECT GETDATE()
+
+
+
+4.Write a query to list the employees whose salaries are within the range of 500 and 1000?
+
+SELECT ENAME,EMPNO,SAL
+FROM EMP
+WHERE SAL BETWEEN 500 AND 1000
+
+
+
+5.Write a query to list the employees who have joined in the month of December?
+
+SELECT ENAME,HIREDATE
+FROM EMP
+WHERE MONTH(HIREDATE)='12'
+
+
+
+6.Write a query to list the employees whose salaries are not within  the range of 1000 and 2500?
+
+SELECT ENAME,EMPNO,SAL
+FROM EMP
+WHERE SAL NOT  BETWEEN 1000 AND 2500
+
+
+ 
+7.Write a query who are getting 800, 950, 3000,5000?
+
+SELECT ENAME,EMPNO,SAL
+FROM EMP
+WHERE SAL IN (800,950,3000,5000)
+
+
+
+
+8.To list all the employees whose names are having ‘L’ as second character?
+ 
+SELECT ENAME
+FROM EMP
+WHERE  ENAME LIKE '_L%'
+
+
+
+9.To list all the employees whose names are having ‘D’ as last character ?
+
+SELECT ENAME
+FROM EMP
+WHERE  ENAME LIKE '%D'
+
+
+
+10.To list all the employees whose names are having just 5 characters as length?
+
+SELECT ENAME
+FROM EMP
+WHERE  LEN(ENAME) =5
+
+
+
+11.To list all the employees whose names are starting with ‘T’ and ending with ‘R’?
+
+SELECT ENAME
+FROM EMP
+WHERE  ENAME LIKE 'T%R';
+
+
+12.Display those employees who's name contains "A"?
+
+SELECT ENAME
+FROM EMP
+WHERE  ENAME LIKE 'A%'
+
+
+
+13.Display those employee who joined the company before 19th of the month?
+
+SELECT ENAME,HIREDATE,DATEPART(DD,HIREDATE) AS 'DATE JOINED'
+FROM EMP
+WHERE DATEPART(DD,HIREDATE)<19
+
+
+
+14.What is the employee number of 'James' ?
+
+SELECT ENAME,COUNT(EMPNO) AS 'EMPLOYEE ID'
+FROM EMP
+WHERE ENAME ='JAMES'
+GROUP BY  ENAME 
+
+
+15.What is the salary of 'king'?
+
+SELECT  SAL,ENAME
+FROM EMP
+WHERE ENAME = 'KING'
+
+
+
+16.Who is the President for organization?
+
+SELECT ENAME,JOB
+FROM EMP
+WHERE JOB ='PRESIDENT'
+
+
+
+17.List all details of all the managers?
+
+SELECT ENAME,EMPNO,SAL,COMM,HIREDATE,DEPTNO
+FROM EMP
+WHERE JOB ='MANAGER'
+
+
+
+18.Give employee details for employees drawing commission?
+
+SELECT ENAME,COMM
+FROM EMP
+WHERE COMM IS NOT NULL
+
+
+
+19.List employees who joined before april-1981?
+
+SELECT ENAME,HIREDATE
+FROM EMP
+WHERE HIREDATE<'1-APR-1981'
+
+
+
+
+20. 21. What is the salary of following?
+
+SELECT ENAME,SAL
+FROM EMP
+WHERE ENAME IN ('KING', 'BLAKE','FORD','SMITH')
+ORDER BY ENAME
+
+
+
+
+22.Who is drawing salary less than 3500?
+
+SELECT ENAME,EMPNO,SAL
+FROM EMP
+WHERE SAL< 3500
+
+
+23.List the details of all the clerks?
+
+SELECT ENAME,EMPNO,SAL,HIREDATE,JOB,COMM,DEPTNO
+FROM EMP
+WHERE JOB = 'CLERK'
+
+
+24.what is the annual salary for each the employees?
+
+SELECT ENAME,EMPNO,SAL*12 AS 'ANUAL SAL'
+FROM EMP
+
+
+25.if there is a hike in monthly salary by 20% for ford, what will be his annual Salary?
+
+SELECT ENAME ,SAL*12*0.2
+FROM EMP
+WHERE ENAME = 'FORD';
+
+
+
+26.What is the total salary for each department?
+
+SELECT E.DEPTNO, SUM(SAL) AS 'TOTAL SALARY', D.DNAME
+FROM EMP E,DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+GROUP BY E.DEPTNO;
+  
+
+
+
+27.Who is drawing the lowest salary in dept 10?
+
+SELECT ENAME, MIN(SAL) AS 'MINIMUM SALARY'
+FROM EMP
+WHERE DEPTNO=10 
+GROUP BY ENAME
+
+
+28.What is the average salary for Managers?
+
+SELECT ENAME,AVG(SAL) AS 'AVERAGE SALARY'
+FROM EMP
+WHERE JOB='MANAGER'
+GROUP BY ENAME;
+
+
+
+29.What is the total salary for salesman?
+
+SELECT ENAME,SUM(SAL) AS 'TOTAL SALARY'
+FROM EMP
+WHERE JOB='SALESMAN'
+GROUP BY ENAME;
+
+
+
+30.Which department is having the lowest average salary?
+
+SELECT DEPTNO, AVG(SAL) AS ' AVERAGE SAL'
+FROM EMP 
+GROUP BY DEPTNO
+HAVING AVG(SAL)
+             
+			 <
+			 (SELECT AVG(SAL)
+			 FROM EMP);
+
+
+
+
+31.
+SELECT DEPTNO,COUNT(*) AS EMPCOUNT
+FROM EMP
+GROUPBY DEPTNO;
+
+
+
+32.What is the highest salary among analyst?
+
+SELECT ENAME, SAL,DEPTNO
+FROM EMP 
+WHERE SAL         
+
+     IN			 
+	 (SELECT MAX(SAL) AS 'HIGHEST SALARY'
+			 FROM EMP
+			 WHERE JOB LIKE 'ANALYST');
+
+
+
+33.What is the highest commission paid?
+
+SELECT ENAME, MAX(COMM) AS 'HIGHEST COMMISSION'
+FROM EMP 
+GROUP BY ENAME
+
+
+34.How many departments are there?
+
+ELECT COUNT(DNAME) AS ' NUMBER OF DEPT'
+FROM DEPT
+
+
+35.List the names in which 3rd  character is L?
+
+SELECT ENAME
+FROM EMP
+WHERE ENAME LIKE '__L%'
+
